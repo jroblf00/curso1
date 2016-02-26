@@ -1,3 +1,4 @@
+//Practica 2, uso del if-else y switch-case
 #include <stdio.h>
 
 int numero;
