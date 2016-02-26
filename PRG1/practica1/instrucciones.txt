@@ -1,0 +1,8 @@
+//compila el codigo
+javac -d ./classes/ ./src/es/unileon/prg1/holaMundo/Saludo.java
+
+//crea documentacion
+javadoc -d ./doc -author -version - private -linksource src/es/unileon/prg1/holamundo/Saludo.java
+
+//ejecuta el programa
+java -classpath ./classes es.unileon.prg1.holamundo.Saludo
