@@ -1,3 +1,4 @@
+//Juan Carlos Robles Fernandez
 #include <stdio.h>
 
 #define TAM_X 3
