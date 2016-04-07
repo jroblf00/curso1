@@ -1,81 +1,97 @@
 package es.unileon.prg.controlFlowStatements;
 
 public class Date{
-
 	
 	private int day;
 	private int month;
 	private int year;
 	
 	public Date(){
+		
+		this.day = 1;
+		this.month = 1;
+		this.year = 2000;
 	}
 	
-	public Date(int day, int month, int year){
+	public Date(int month, int day, int year){
 		try{
 			
 		setNumberMonth(month);
 		setNumberDay(day);
 		setNumberYear(year);
-		}catch
-			
+		}catch (DateException ex){
+			ex.getMessage();
+		}
 	}
 	
 	public void setNumberDay(int day) throws DateException{
 		
 		StringBuffer errorMessage = new StringBuffer();
 		
-		if(((this.month==1) || (this.month==3) || (this.month==5) || (this.month==7) || (this.month==8)
-			   || (this.month==10) || (this.month==12)) && ((day<1) || (day>31))){
-			errorMessage.append("Error day");	
-		}
+		try{
+			if(((this.month==1) || (this.month==3) || (this.month==5) || (this.month==7) || (this.month==8)
+			   	|| (this.month==10) || (this.month==12)) && ((day<1) || (day>31))){
+				errorMessage.append("Error day");	
+			}
 		
-		else if(((this.month==4) || (this.month==6) || (this.month==9) || (this.month==11)) 
-					&& ((day<0) || (day>30))){
-			errorMessage.append("Error day");	
-		}
+			else if(((this.month==4) || (this.month==6) || (this.month==9) || (this.month==11)) 
+						&& ((day<0) || (day>30))){
+				errorMessage.append("Error day");	
+			}
 		
-		else if((this.month==2) && ((day<0) || (day>28))){
-			errorMessage.append("Error day");
-		}
-		else if(errorMessage.length()!=0){
+			else if((this.month==2) && ((day<0) || (day>28))){
+				errorMessage.append("Error day");
+			}
 			
-			throw new DateException(errorMessage.toString());
+			if(errorMessage.length()!=0){
 			
-		}else{
+				throw new DateException(errorMessage.toString());
+			
+			}else{
 		
-			this.day = day;
-		}
+				this.day = day;
+			}
+			}catch (DateException e){
+				System.err.println(e.getMessage());
+			}
 	}
 	
 	public void setNumberMonth(int month) throws DateException{
 	
 		StringBuffer errorMessage = new StringBuffer();
-		
-		if((month<1) || (month>12)){
-			errorMessage.append("Error month");	
-		}
-		else if(errorMessage.length()!=0){
-			
-			throw new DateException(errorMessage.toString());
-			
-		}else{
-			this.month = month;
+		try{
+			if((month<1) || (month>12)){
+				errorMessage.append("Error month");	
+			}
+			if(errorMessage.length()!=0){
+
+				throw new DateException(errorMessage.toString());
+
+			}else{
+				this.month = month;
+			}
+		}catch (DateException e){
+			System.err.println(e.getMessage());
 		}
 	}
 	
 	public void setNumberYear(int year) throws DateException{
 		
 		StringBuffer errorMessage = new StringBuffer();
-	
-		if(year<0){
-			errorMessage.append("Error year");	
-		}
-		else if(errorMessage.length()!=0){
-			
-			throw new DateException(errorMessage.toString());
-			
-		}else{
-			this.year = year;
+		
+		try{
+			if(year<1){
+				errorMessage.append("Error year");	
+			}
+			if(errorMessage.length()!=0){
+
+				throw new DateException(errorMessage.toString());
+
+			}else{
+				this.year = year;
+			}
+		}catch (DateException e){
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -109,11 +125,11 @@ public class Date{
 		return this.day == date.getNumberDay();
 	}
 	
-	public String printNameMonth(){
+	public String printNameMonth(int month){
 		
 		String nameMonth = null;
 		
-		switch(this.month){
+		switch(month){
 		
 			case 1:
 				nameMonth = "January";
@@ -203,28 +219,83 @@ public class Date{
 		return season;
 	}
 	
-	/*public String printMonthLeftUntilEndOfYear(Date date){
+	public String printMonthLeftUntilEndOfYear(){
 	
-		for(int i=_month;i<13;i++){
+		StringBuffer nextMonth = new StringBuffer();
+		int month = this.month; 
+		for(int i=month+1;i<13;i++){
 			
-			
+			nextMonth.append(printNameMonth(i)+" ");
 		}
-		return ;
-	}*/
+		return nextMonth.toString();
+	}
+	
+	public int dayOfMonth(int month){
+	
+		int days;
+		
+		if((month==1) || (month==3) || (month==5) || (month==7)
+		  || (month==8) || (month==10) || (month==12)){
+			
+			days = 31;
+		}
+		
+		else if((month==4) || (month==6) || (month==9) || (month==11)){
+			
+			days = 30;
+		}else{
+			
+			days = 28;
+		}
+		
+		return days;
+	}
+	
+	public String allDatesUntilEndMonth(){
+	
+		StringBuffer days = new StringBuffer();
+		int numberDay = getNumberDay();
+		
+		for(int i=numberDay+1;i<dayOfMonth(this.month);i++){
+			
+			days.append(i+" ");
+		}
+	
+		return days.toString();
+	}
+	
+	public String MonthSameNumber(){
+	
+		StringBuffer months = new StringBuffer();
+		
+		for(int i=1;i<13;i++){
+		
+			if(dayOfMonth(this.month)==dayOfMonth(i)){
+				
+				months.append(printNameMonth(i)+" ");			
+			}
+		}
+		return months.toString();
+	}
+	
+	public int countDaysOfYear(){
+	
+		int daysOfYear=0;
+		
+		for(int i=1;i<13;i++){
+		
+			daysOfYear = daysOfYear + dayOfMonth(i); 
+		}
+		
+		return daysOfYear;
+	}
+	
+	public String printDate(){
+	
+		StringBuffer date = new StringBuffer();
+		
+		date.append(printNameMonth(this.month)+","+this.day+","+this.year);
+		
+		return date.toString();
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
