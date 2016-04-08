@@ -31,16 +31,16 @@ public class Date{
 		try{
 			if(((this.month==1) || (this.month==3) || (this.month==5) || (this.month==7) || (this.month==8)
 			   	|| (this.month==10) || (this.month==12)) && ((day<1) || (day>31))){
-				errorMessage.append("Error day");	
+				errorMessage.append("El dia ingresado no es valido, ingrese un valor del 1 al 31");	
 			}
 		
 			else if(((this.month==4) || (this.month==6) || (this.month==9) || (this.month==11)) 
 						&& ((day<0) || (day>30))){
-				errorMessage.append("Error day");	
+				errorMessage.append("El dia ingresado no es valido, ingrese un valor del 1 al 30");	
 			}
 		
 			else if((this.month==2) && ((day<0) || (day>28))){
-				errorMessage.append("Error day");
+				errorMessage.append("El dia ingresado no es valido, ingrese un valor del 1 al 28");
 			}
 			
 			if(errorMessage.length()!=0){
@@ -61,7 +61,7 @@ public class Date{
 		StringBuffer errorMessage = new StringBuffer();
 		try{
 			if((month<1) || (month>12)){
-				errorMessage.append("Error month");	
+				errorMessage.append("El mes ingresado no es valido, ingrese un valor del 1 al 12");	
 			}
 			if(errorMessage.length()!=0){
 
@@ -81,7 +81,7 @@ public class Date{
 		
 		try{
 			if(year<1){
-				errorMessage.append("Error year");	
+				errorMessage.append("El mes ingresado no es valido, ingrese un valor mayor a 0 para el año");	
 			}
 			if(errorMessage.length()!=0){
 
