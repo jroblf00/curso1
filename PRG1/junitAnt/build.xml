@@ -1,0 +1,40 @@
+<project name="Bank" basedir="." default="todo">
+    <property name="src" value="src"/>
+    <property name="test" value="test"/>
+    <property name="lib" value="lib/junit-4.8.2.jar"/>
+    <property name="classes" value="classes"/>
+
+    <property name="paquetes" value="es.unileon.prg1.bank"/>
+    <property name="titulo" value="Example: junit + ant"/>
+
+    <target name="clean">
+      <delete dir="${classes}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+      <mkdir dir="${classes}"/>
+      <javac srcdir="${src}" destdir="${classes}" classpath="${lib}"
+		includeantruntime="false"/>
+      <echo message="Compilation...done"/>
+    </target>
+
+    <target name="compileTests" depends="compile">
+      <mkdir dir="${classes}"/>
+      <javac srcdir="${test}" destdir="${classes}" classpath="${lib}"
+		includeantruntime="false"/>
+      <echo message="Test compilation...done"/>
+    </target>
+
+    <target name="test" depends="compileTests">
+		<java classname="org.junit.runner.JUnitCore">
+			<classpath>
+				<pathelement path="${classes}"/>
+				<pathelement path="${lib}"/>
+			</classpath>
+			<arg value="es.unileon.prg1.bank.AccountTest"/>
+		</java>
+    </target>
+
+    <target name="todo" depends="test"/>
+
+</project>
