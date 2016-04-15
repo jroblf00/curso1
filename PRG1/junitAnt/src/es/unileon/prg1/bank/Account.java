@@ -1,5 +1,7 @@
 /*
-Una vez hechas las modificaciones el test ya no falla porque 
+Una vez hechas las modificaciones el test ya no falla porque las llamadas a los metodos son punteros,
+con lo que les asignas la direccion de memoria, con lo que al doficiar el valor de la variable tambien
+tambien se cambia el del metodo que has llamado, porque la direccion de memoria son la misma.
 */
 
 package es.unileon.prg1.bank;
